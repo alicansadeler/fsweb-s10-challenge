@@ -1,9 +1,12 @@
+import { nanoid } from "nanoid";
+import { NOT_EKLE } from "../actions/actions";
+
 const s10chLocalStorageKey = "s10ch";
 
 const baslangicDegerleri = {
   notlar: [
     {
-      id: "75g1IyB8JLehAr0Lr5v3p",
+      id: nanoid(),
       date: "Fri Feb 03 2023 09:40:27 GMT+0300 (GMT+03:00)",
       body: "Bugün hava çok güzel!|En iyi arkadaşımın en iyi arkadaşı olduğumu öğrendim :)|Kedim iyileşti!",
     },
@@ -28,8 +31,15 @@ function baslangicNotlariniGetir(key) {
   }
 }
 
-export const reducer = (state, action) => {
+export const reducer = (
+  state = baslangicNotlariniGetir(s10chLocalStorageKey),
+  action
+) => {
   switch (action.type) {
+    case NOT_EKLE:
+      const notEkle = { ...state, notlar: [...state.notlar, action.payload] };
+      localStorageStateYaz(s10chLocalStorageKey, notEkle);
+      return notEkle;
     default:
       return state;
   }
