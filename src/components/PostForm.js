@@ -20,7 +20,7 @@ export default function PostForm() {
   function onSubmit(data) {
     const yeniNot = {
       id: nanoid(),
-      date: Date(),
+      date: new Date().toISOString(),
       body: Object.values(data)
         .filter((v) => v !== "")
         .join("|"),
@@ -28,10 +28,6 @@ export default function PostForm() {
     dispatch(notEkleAPI(yeniNot));
     toast.success(" Wow so easy!");
     setTimeout(() => history.push("/notlar"), 2000);
-    // burada ilgili eylemi dispatch edin
-    // toast mesajı gösterin
-    // sonra aşağıdaki satırı aktifleştirin
-    // setTimeout(() => history.push("/notlar"), 2000);
   }
 
   const inputCx = "border border-zinc-300 h-9 rounded-none text-sm px-2 w-full";
